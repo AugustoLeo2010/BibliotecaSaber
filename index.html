@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Projeto acadêmico Biblioteca Saber: modelagem e normalização de banco de dados relacional.">
+  <title>Biblioteca Saber | Projeto de Banco de Dados</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topo">
+    <nav class="navegacao container" aria-label="Navegação principal">
+      <a class="marca" href="#inicio">📚 Biblioteca Saber</a>
+      <button class="menu-botao" id="menuBotao" aria-expanded="false" aria-controls="menuLinks">Menu ☰</button>
+      <div class="menu-links" id="menuLinks">
+        <a href="#projeto">Projeto</a>
+        <a href="#modelo">Modelo</a>
+        <a href="#normalizacao">Normalização</a>
+        <a href="#consultas">Consultas SQL</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-conteudo">
+        <p class="etiqueta">Projeto acadêmico • Banco de dados relacional</p>
+        <h1>Organizar conhecimento.<br><span>Facilitar a leitura.</span></h1>
+        <p class="hero-texto">Um sistema de biblioteca para organizar livros, autores, editoras, leitores, exemplares e empréstimos de forma consistente.</p>
+        <a class="botao" href="#projeto">Conheça o projeto</a>
+      </div>
+    </section>
+
+    <section class="secao container" id="projeto">
+      <p class="etiqueta">01 • Contextualização</p>
+      <h2>O problema que queremos resolver</h2>
+      <p>Uma biblioteca que controla seus registros em cadernos ou planilhas separadas pode enfrentar dados duplicados, dificuldade para localizar exemplares, erros no acompanhamento de empréstimos e demora para produzir relatórios.</p>
+      <div class="cartoes">
+        <article class="cartao">
+          <span class="icone">🗂️</span>
+          <h3>Informações organizadas</h3>
+          <p>Livros, autores, categorias e editoras possuem registros próprios e relacionados por identificadores.</p>
+        </article>
+        <article class="cartao">
+          <span class="icone">🔎</span>
+          <h3>Pesquisas mais rápidas</h3>
+          <p>Consultas SQL ajudam a encontrar títulos, verificar disponibilidade e acompanhar empréstimos.</p>
+        </article>
+        <article class="cartao">
+          <span class="icone">🔐</span>
+          <h3>Integridade dos dados</h3>
+          <p>Chaves primárias, estrangeiras e restrições reduzem referências inválidas e duplicidades.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="secao secao-suave" id="modelo">
+      <div class="container">
+        <p class="etiqueta">02 • Modelo lógico</p>
+        <h2>Como os dados se conectam</h2>
+        <p>O banco foi dividido em tabelas que representam os elementos principais da biblioteca. As tabelas associativas permitem relacionamentos muitos-para-muitos.</p>
+        <div class="modelo-lista">
+          <div><strong>editoras</strong><span>Uma editora pode publicar vários livros (1:N).</span></div>
+          <div><strong>livros</strong><span>Um livro pode ter vários exemplares (1:N).</span></div>
+          <div><strong>autores ↔ livros</strong><span>Relacionamento N:N por meio de <code>livros_autores</code>.</span></div>
+          <div><strong>categorias ↔ livros</strong><span>Relacionamento N:N por meio de <code>livros_categorias</code>.</span></div>
+          <div><strong>leitores → empréstimos</strong><span>Um leitor pode realizar vários empréstimos (1:N).</span></div>
+          <div><strong>exemplares → empréstimos</strong><span>Um exemplar pode aparecer em diferentes empréstimos ao longo do tempo (1:N).</span></div>
+        </div>
+        <p class="nota">O diagrama lógico do projeto deve ser incluído no repositório junto dos demais materiais.</p>
+      </div>
+    </section>
+
+    <section class="secao container" id="normalizacao">
+      <p class="etiqueta">03 • Fundamentação teórica</p>
+      <h2>Formas normais</h2>
+      <p>A normalização organiza as tabelas para diminuir redundâncias e evitar anomalias de inserção, atualização e exclusão.</p>
+      <div class="normalizacoes">
+        <article class="normal-card"><span>1FN</span><h3>Valores atômicos</h3><p>Cada campo guarda um único valor, sem listas de dados na mesma célula.</p></article>
+        <article class="normal-card"><span>2FN</span><h3>Dependência completa</h3><p>Todo atributo não-chave depende da chave primária completa, não apenas de parte dela.</p></article>
+        <article class="normal-card"><span>3FN</span><h3>Sem dependência transitiva</h3><p>Atributos não-chave não devem depender de outros atributos não-chave.</p></article>
+        <article class="normal-card"><span>4FN</span><h3>Dependências multivaloradas</h3><p>Relações multivaloradas independentes devem ser separadas para evitar combinações redundantes.</p></article>
+      </div>
+    </section>
+
+    <section class="secao secao-suave" id="consultas">
+      <div class="container">
+        <p class="etiqueta">04 • SQL na prática</p>
+        <h2>Exemplos de consultas</h2>
+        <p>As consultas do projeto demonstram junções, filtros, agrupamentos, ordenação e funções de agregação.</p>
+        <div class="consulta">
+          <div class="consulta-topo"><span>INNER JOIN</span><button class="copiar" data-copy="SELECT l.titulo, e.nome AS editora FROM livros l INNER JOIN editoras e ON e.id_editora = l.id_editora;">Copiar SQL</button></div>
+          <pre><code>SELECT l.titulo, e.nome AS editora
+FROM livros l
+INNER JOIN editoras e ON e.id_editora = l.id_editora;</code></pre>
+          <p>Exibe cada livro junto do nome da editora responsável.</p>
+        </div>
+        <div class="consulta">
+          <div class="consulta-topo"><span>WHERE + LIKE</span><button class="copiar" data-copy="SELECT titulo FROM livros WHERE titulo LIKE '%estrela%';">Copiar SQL</button></div>
+          <pre><code>SELECT titulo
+FROM livros
+WHERE titulo LIKE '%estrela%';</code></pre>
+          <p>Busca títulos que contenham a palavra “estrela”.</p>
+        </div>
+        <div class="consulta">
+          <div class="consulta-topo"><span>GROUP BY + COUNT</span><button class="copiar" data-copy="SELECT estado, COUNT(*) AS quantidade FROM exemplares GROUP BY estado ORDER BY quantidade DESC;">Copiar SQL</button></div>
+          <pre><code>SELECT estado, COUNT(*) AS quantidade
+FROM exemplares
+GROUP BY estado
+ORDER BY quantidade DESC;</code></pre>
+          <p>Conta quantos exemplares existem em cada estado de conservação.</p>
+        </div>
+        <p class="nota">O arquivo <code>sql/03_consultas.sql</code> contém o conjunto completo de consultas do trabalho.</p>
+      </div>
+    </section>
+
+    <section class="secao container" id="tecnologias">
+      <p class="etiqueta">05 • Tecnologias</p>
+      <h2>Ferramentas utilizadas</h2>
+      <div class="tecnologias">
+        <span>MySQL</span><span>SQL</span><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>GitHub</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="container rodape-conteudo">
+      <div><strong>Biblioteca Saber</strong><p>Projeto acadêmico de modelagem e consultas em banco de dados.</p></div>
+      <a href="#inicio">Voltar ao topo ↑</a>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+-- Biblioteca Saber
+-- Arquivo de apoio para a seção de normalização.
+-- Este arquivo é documentação em comentários; não altera as tabelas.
+--
+-- 1FN (Primeira Forma Normal)
+-- Cada coluna guarda um único valor. Exemplo: leitores.telefone contém
+-- um telefone por registro, não uma lista de telefones separados por vírgulas.
+-- Se houver vários telefones por leitor, recomenda-se uma tabela telefones_leitores.
+--
+-- 2FN (Segunda Forma Normal)
+-- As tabelas devem estar na 1FN e todo atributo não-chave deve depender
+-- da chave primária completa. livros_autores e livros_categorias possuem
+-- chaves compostas e não possuem atributos não-chave, evitando dependência parcial.
+--
+-- 3FN (Terceira Forma Normal)
+-- As tabelas devem estar na 2FN e os atributos não-chave não devem depender
+-- de outros atributos não-chave. Por isso, dados da editora ficam em editoras,
+-- e livros armazena apenas id_editora como chave estrangeira.
+--
+-- 4FN (Quarta Forma Normal)
+-- Evita dependências multivaloradas independentes na mesma tabela.
+-- Autores e categorias de um livro são registrados separadamente em
+-- livros_autores e livros_categorias, evitando combinações redundantes.
+--
+-- Observação: a confirmação formal de 4FN depende das dependências
+-- multivaloradas reais do domínio. O modelo separa as relações independentes
+-- mais evidentes (autores e categorias).
