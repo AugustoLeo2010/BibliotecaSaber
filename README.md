@@ -70,11 +70,10 @@ O banco pode ser publicado em um serviço compatível com MySQL, como Aiven ou A
 
 Para exportar estrutura e dados com MySQL Workbench, use **Server > Data Export**, selecione `biblioteca_saber`, marque estrutura e dados e exporte para um arquivo SQL. Guarde o dump no local solicitado pelo professor, respeitando as regras de segurança.
 
-## Integrantes
+## Integrante
 
-- Preencha com os nomes dos integrantes.
+- AugustoLeo.
 
-## Observações
-
-- Verifique os resultados das consultas no seu banco antes de apresentar capturas de tela.
-- Ajuste o conteúdo e as referências conforme as exigências do professor.
+## Observação
+- link do deploy
+ https://augustoleo2010.github.io/BibliotecaSaber/
